@@ -36,13 +36,19 @@ describe 'Blackjack Score' do
   
   it 'raises an ArgumentError for invalid cards' do
     hand = ['JOKER']
-    score = blackjack_score(hand)
-    expect score.must_raise ArgumentError
+    
+    expect {
+      blackjack_score(hand)
+    }.must_raise ArgumentError
+    
   end
   
   it 'raises an ArgumentError for scores over 21' do
     hand = [3, 'Jack', 'Queen']
-    score = blackjack_score(hand)
-    expect score.must_raise ArgumentError
+    
+    expect {
+      blackjack_score(hand)
+    }.must_raise ArgumentError
+    
   end
 end
