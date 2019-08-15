@@ -3,13 +3,13 @@ VALID_CARDS = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'Jack', 'Queen', 'King', 'Ace']
 def blackjack_score(hand)
   
   unless hand.class == Array
-    raise ArgumentError#.new("I NEED AN ARRAY")
+    raise ArgumentError.new("I NEED AN ARRAY")
   end
   
   if hand.length > 5
-    raise ArgumentError#.new("TOO MANY CARDS")
+    raise ArgumentError.new("TOO MANY CARDS")
   elsif hand.length < 2
-    raise ArgumentError#.new("I NEED AT LEAST 2 CARDS")
+    raise ArgumentError.new("I NEED AT LEAST 2 CARDS")
   end
   
   # add up scores
@@ -18,16 +18,17 @@ def blackjack_score(hand)
   qty_aces = 0
   
   hand.each do |card|
+    unless card.class == Integer
+      card = card.capitalize
+    end
+    
     unless VALID_CARDS.include? card
-      # does not account for case discrepancies (need .capitalize)
-      raise ArgumentError#.new("INVALID CARD: #{card}")
-      
+      raise ArgumentError.new("INVALID CARD: #{card}")
     else 
       # assign numerical value and add to running score
       if card == "Ace"
         # set aside for now, decide on value at the end
         qty_aces += 1
-        next
       else
         value = score_hash[card]
         score += value
@@ -44,10 +45,7 @@ def blackjack_score(hand)
     end
   end
   
-  if score > 21
-    raise ArgumentError#.new("BUST!")
-  end
+  raise ArgumentError.new("BUST!") if score > 21
   
   return score
 end
-
